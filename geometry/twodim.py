@@ -57,7 +57,7 @@ class Line():
         e2 = self.xcoeff*p2.xcoord + self.ycoeff*p2.ycoord+self.constant
         sign1 = math.copysign(1,e1)
         sign2 = math.copysign(1,e2)
-        if e1==e2:
+        if sign1==sign2:
             return True
         else:
             return False
