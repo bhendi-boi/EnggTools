@@ -1,3 +1,8 @@
+try:
+    import math
+except:
+    pass
+
 class IllegalPoint(Exception):
     "Invalid Point"
 
@@ -46,6 +51,16 @@ class Line():
         if int(self.xcoeff* xcoord + self.ycoeff*ycoord + self.constant):
             return False
         return True
+
+    def onSameSide(self,p1:Point, p2:Point) -> bool:
+        e1 = self.xcoeff*p1.xcoord + self.ycoeff*p1.ycoord+self.constant
+        e2 = self.xcoeff*p2.xcoord + self.ycoeff*p2.ycoord+self.constant
+        sign1 = math.copysign(1,e1)
+        sign2 = math.copysign(1,e2)
+        if e1==e2:
+            return True
+        else:
+            return False
         
     
 
