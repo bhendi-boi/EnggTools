@@ -1,19 +1,19 @@
 class IllegalPoint(Exception):
     "Invalid Point"
 
+
 class Point():
-    def __init__(self, coordinate:tuple):
+    def __init__(self, coordinate: tuple) -> None:
         # (x,y) input
-        if(len(coordinate)!=2):
-            
+        if (len(coordinate) != 2):
             raise IllegalPoint
         self.xcoord = coordinate[0]
         self.ycoord = coordinate[1]
 
-    def dist2origin(self):
+    def dist2origin(self) -> float:
         dist = (self.xcoord**2 + self.ycoord**2)**0.5
         return dist
-        
+
 
 class Line():
     def __init__(self,equation:tuple) -> None:
