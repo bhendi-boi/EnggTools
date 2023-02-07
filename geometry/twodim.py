@@ -14,6 +14,22 @@ class Point():
         dist = (self.xcoord**2 + self.ycoord**2)**0.5
         return dist
 
+    def dist2point(self, point: tuple) -> float:
+        if len(point) != 2:
+            raise IllegalPoint
+        try:
+            point[0] = float(point[0])
+            point[1] = float(point[1])
+        except:
+            raise IllegalPoint
+        x1 = self.xcoord
+        y1 = self.ycoord
+        x2 = point[0]
+        y2 = point[1]
+        dist: float
+        dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
+        return dist
+
 
 class Line():
     def __init__(self, equation: str):
