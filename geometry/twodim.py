@@ -16,22 +16,20 @@ class Point():
         
 
 class Line():
-    def __init__(self,equation:str) :
+    def __init__(self,equation:tuple) -> None:
         #Stored in (a,b,c) tuple, of equation ax+by+c=0
-        #Parse
-        while(equation.find(' ') != -1):
-            pos = equation.find(' ')
-            equation = list(equation)
-            equation.pop(pos)
-            equation = ''.join(equation)
-
-        posx = equation.find('x')
-        posy = equation.find('y')
-        posequal = equation.find('=')
+        #Parse     
+        self.xcoeff = equation[0]
+        self.ycoeff = equation[1]
+        self.constant = equation[2]
         
-        self.xcoeff = float(equation[0:posx])
-        self.ycoeff = float(equation[posx+1:posy])
-        self.constant = float(equation[posy+1:posequal])
+        
+    def cointainsPoint(self, point:Point)->bool:
+        xcoord = point.xcoord
+        ycoord = point.ycoord
+        if int(self.xcoeff* xcoord + self.ycoeff*ycoord + self.constant):
+            return False
+        return True
         
     
 
