@@ -1,10 +1,11 @@
 class IllegalPoint(Exception):
-    print("Invalid Point")
+    "Invalid Point"
 
 class Point():
     def __init__(self, coordinate:tuple):
         # (x,y) input
-        if(len(coordinate)>2):
+        if(len(coordinate)!=2):
+            
             raise IllegalPoint
         self.xcoord = coordinate[0]
         self.ycoord = coordinate[1]
