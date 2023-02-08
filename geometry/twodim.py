@@ -45,6 +45,25 @@ class Line():
         self.ycoeff = equation[1]
         self.constant = equation[2]
 
+    @classmethod
+    def points2line(cls,point1:Point,point2:Point) :
+        x1,y1 = (point1.xcoord,point1.ycoord)
+        x2,y2 = (point2.xcoord,point2.ycoord)
+        
+        if x1==x2:
+            slope = 'inf'
+        else:
+            slope = (y2-y1)/(x2-x1)
+        
+        if slope == 'inf':
+            ycoeff=0
+            xcoeff=1
+            constant=(-1)*x1
+        else:
+            xcoeff = y1-y2
+            ycoeff = x2-x1
+            constant = (x1-x2)*y1+x1*(y2-y1)
+        return Line((xcoeff,ycoeff,constant))
 
     def containsPoint(self, point: Point) -> bool:
         xcoord = point.xcoord
@@ -62,23 +81,8 @@ class Line():
             return True
         else:
             return False
+    
 
-def points2line(point1:Point,point2:Point) -> Line:
-    x1,y1 = (point1.xcoord,point1.ycoord)
-    x2,y2 = (point2.xcoord,point2.ycoord)
-    
-    if x1==x2:
-        slope = 'inf'
-    else:
-        slope = (y2-y1)/(x2-x1)
-    
-    if slope == 'inf':
-        ycoeff=0
-        xcoeff=1
-        constant=(-1)*x1
-    else:
-        xcoeff = y1-y2
-        ycoeff = x2-x1
-        constant = (x1-x2)*y1+x1*(y2-y1)
-    return Line((xcoeff,ycoeff,constant))
+
+
     
