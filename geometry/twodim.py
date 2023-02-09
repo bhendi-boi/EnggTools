@@ -89,7 +89,7 @@ class Circle():
         self.area = math.pi*radius*radius
         self.diameter = self.radius*2
 
-
+# enduku ra
 class Triangle():
     def __init__(self, a: Point, b: Point, c: Point) -> None:
         self.a = a
