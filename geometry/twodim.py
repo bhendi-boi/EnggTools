@@ -20,20 +20,7 @@ class Point():
         dist = (self.xcoord**2 + self.ycoord**2)**0.5
         return dist
 
-    def dist2point(self, point: tuple) -> float:
-        assert len(point)==2,"Invalid input for 2D point"
-        try:
-            float(point[0])
-            float(point[1])
-        except:
-            raise IllegalPoint
-        x1 = self.xcoord
-        y1 = self.ycoord
-        x2 = point[0]
-        y2 = point[1]
-        dist: float
-        dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
-        return dist
+
 
 
 class Line():
@@ -148,3 +135,24 @@ class Triangle():
             radius = ((lin_coeff_x/(2*sqr_coeff))**2+(lin_coeff_y/(2*sqr_coeff))**2-(const_coeff/(sqr_coeff)))**0.5
             self.circle = Circle(radius,Point(center))
             return self.circle
+
+def intersectionPointofTwoLines(l1:Line, l2:Line):
+    
+    a,b,c = l1.xcoeff, l1.ycoeff, l1.constant
+    d,e,f = l2.xcoeff,l2.ycoeff,l2.constant
+    assert b/a != e/d, "Lines are parallel, no intersection"
+    k = b/e
+    l = a/d
+    x = (f*k-c)/(a-d*k)
+    y = (l*f-c)/(b-l*e)
+    poi = (x,y)
+    return Point(poi)
+
+def distanceBetweenPoints(point1: Point,point2:Point) -> float:
+    x1 = point1.xcoord
+    y1 = point1.ycoord
+    x2 = point2[0]
+    y2 = point2[1]
+    dist: float
+    dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
+    return dist
