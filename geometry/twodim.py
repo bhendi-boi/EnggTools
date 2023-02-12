@@ -16,6 +16,7 @@ class Point():
         self.xcoord = coordinate[0]
         self.ycoord = coordinate[1]
 
+
     def dist2origin(self) -> float:
         dist = (self.xcoord**2 + self.ycoord**2)**0.5
         return dist
@@ -30,6 +31,7 @@ class Line():
         self.xcoeff = equation[0]
         self.ycoeff = equation[1]
         self.constant = equation[2]
+
 
     @classmethod
     def points2line(cls, point1: Point, point2: Point):
@@ -51,12 +53,14 @@ class Line():
             constant = (x1-x2)*y1+x1*(y2-y1)
         return Line((xcoeff, ycoeff, constant))
 
+
     def containsPoint(self, point: Point) -> bool:
         xcoord = point.xcoord
         ycoord = point.ycoord
         if int(self.xcoeff * xcoord + self.ycoeff*ycoord + self.constant):
             return False
         return True
+
 
     def onSameSide(self, p1: Point, p2: Point) -> bool:
         e1 = self.xcoeff*p1.xcoord + self.ycoeff*p1.ycoord+self.constant
@@ -76,7 +80,7 @@ class Circle():
         self.area = math.pi*radius*radius
         self.diameter = self.radius*2
 
-# enduku ra
+
 class Triangle():
     def __init__(self, a: Point, b: Point, c: Point) -> None:
         self.a = a
@@ -90,12 +94,14 @@ class Triangle():
         self.area = (s*(s-dists[2])*(s-dists[1])*(s-dists[0]))**0.5
         self.hasCircle = False
 
+
     def getSideEquations(self):
         e1 = Line.points2line(self.a, self.b)
         e2 = Line.points2line(self.b, self.c)
         e3 = Line.points2line(self.a, self.c)
         equations = (e2, e3, e1) #In order of sides A B C
         return equations
+
 
     def getCircumcircle(self):
         if self.hasCircle == True:
@@ -136,8 +142,8 @@ class Triangle():
             self.circle = Circle(radius,Point(center))
             return self.circle
 
+
 def intersectionPointofTwoLines(l1:Line, l2:Line):
-    
     a,b,c = l1.xcoeff, l1.ycoeff, l1.constant
     d,e,f = l2.xcoeff,l2.ycoeff,l2.constant
     assert b/a != e/d, "Lines are parallel, no intersection"
@@ -147,6 +153,7 @@ def intersectionPointofTwoLines(l1:Line, l2:Line):
     y = (l*f-c)/(b-l*e)
     poi = (x,y)
     return Point(poi)
+
 
 def distanceBetweenPoints(point1: Point,point2:Point) -> float:
     x1 = point1.xcoord
