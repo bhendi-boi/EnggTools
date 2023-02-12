@@ -22,6 +22,8 @@ class Point():
         return dist
 
 
+    def dist2point(self,point2)->float:
+        return distanceBetweenPoints(self,point2)
 
 
 class Line():
