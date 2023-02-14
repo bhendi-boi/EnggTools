@@ -74,6 +74,10 @@ class Line():
         else:
             return False
 
+    
+    def passesThroughOrigin(self)->bool:
+        return self.constant == 0
+
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:
