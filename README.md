@@ -139,3 +139,21 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
 
   **Note**
   You can use `containsPoint` method to find whether a line passes through origin or not. But we recommend you to use `passesThroughOrigin` instead because it is faster when compared to `containsPoint`.
+
+- ### isParallelTo
+
+  Use this method to find whether a line is paralle to another line or not.
+
+  - params : Line
+  - return type: bool
+
+  ```python
+  from geometry.twodim import Line
+  l1 = Line((2,4,0))
+  l2 = Line((1,4,3))
+  l1IsParallelToL2 = l1.isParallelTo(l2)
+  # retuns False cuz l2 is not parallel to l1
+  l3= Line((1,2,3))
+  l1IsParallelToL3 = l1.isParallelTo(l3)
+  # retuns True cuz l3 is parallel to l1
+  ```

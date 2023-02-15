@@ -33,6 +33,7 @@ class Line():
         self.xcoeff = equation[0]
         self.ycoeff = equation[1]
         self.constant = equation[2]
+        self.slope = -self.xcoeff/self.ycoeff
 
 
     @classmethod
@@ -78,6 +79,9 @@ class Line():
     def passesThroughOrigin(self)->bool:
         return self.constant == 0
 
+
+    def isParallelTo(self, line2)->bool:
+        return self.slope == line2.slope
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:
