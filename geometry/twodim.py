@@ -80,8 +80,12 @@ class Line():
         return self.constant == 0
 
 
-    def isParallelTo(self, line2)->bool:
+    def isParallelTo(self, line2:"Line")->bool:
         return self.slope == line2.slope
+
+    
+    def isPerpendicularTo(self,line2:"Line")->bool:
+        return self.slope * line2.slope == -1
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:

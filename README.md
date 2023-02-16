@@ -32,6 +32,7 @@ This is one of the basic element in 2D Geometry. This represents a point in 2D c
 
   ```python
   from geometry.twodim import Point
+
   p = Point((1,2))
   ```
 
@@ -46,6 +47,7 @@ This is one of the basic element in 2D Geometry. This represents a point in 2D c
   from geometry.twodim import Line
 
   p = Point(2,0)
+
   print(p.dist2origin())
   # it will return 2.0
   ```
@@ -62,6 +64,7 @@ This is one of the basic element in 2D Geometry. This represents a point in 2D c
 
   p1 = Point(2,0)
   p2 = Point(1,0)
+
   print(p2.dist2point((1,0)))
   # it will return 1.0
   ```
@@ -83,43 +86,59 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
 
   ```python
   from geometry.twodim import Line, Point
+
   p1 = Point((1,2))
   p2 = Point(2,2)
+
   l = Line(p1,p2)
   # returns a line pasing through points p1 and p2
   # i.e. y-2=0
   ```
 
 - ### containsPoint
+
   Use this method to find whether a point is present on a line.
+
   - params : Point
   - return type: bool
+
   ```python
   from geometry.twodim import Line, Point
+
   p1 = Point((1,2))
   p2 = Point((2,2))
   l = Line(p1,p2)
+
   lcontainsp1 = l.containsPoint(p1)
   # returns True cuz l passes through p1
+
   p3 = Point((1,0))
   lcontainsp3 = l.containsPoint(p3)
   # retuns False cuz l does not pass through p3
   ```
+
 - ### onSameSide
+
   Use this method to find whether a point is present on a line.
+
   - params : Point, Point
   - return type: bool
+
   ```python
   from geometry.twodim import Line, Point
+
   l = Line((1,0,0))
   p1 = Point((2,0))
   p2 = Point((2,8))
+
   p1p2OnSameSideOfL = l.onSameSide(p1,p2)
   # returns True cuz p1, p2 are on the same side of line l.
+
   p3 = Point((-1,3))
   p1p3OnSameSideOfL = l.onSameSide(p1,p3)
   # retuns False cuz p1 and p3 doesnot fall on the same side of line l.
   ```
+
 - ### passesThroughOrigin
 
   Use this method to find whether a line passes through origin or not.
@@ -129,9 +148,11 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
 
   ```python
   from geometry.twodim import Line
+
   l = Line((1,2,0))
   lPassesThroughOrigin = l.passesThroughOrigin()
   # returns True cuz line l passes throught origin
+
   l2 = Line((1,2,3))
   lPassesThroughOrigin = l2.passesThroughOrigin()
   # retuns False cuz l2 doesnot pass through origin
@@ -142,18 +163,42 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
 
 - ### isParallelTo
 
-  Use this method to find whether a line is paralle to another line or not.
+  Use this method to find whether a line is parallel to another line or not.
 
   - params : Line
   - return type: bool
 
   ```python
   from geometry.twodim import Line
+
   l1 = Line((2,4,0))
   l2 = Line((1,4,3))
+
   l1IsParallelToL2 = l1.isParallelTo(l2)
   # retuns False cuz l2 is not parallel to l1
+
   l3= Line((1,2,3))
   l1IsParallelToL3 = l1.isParallelTo(l3)
+  # retuns True cuz l3 is parallel to l1
+  ```
+
+- ### isPerpendicularTo
+
+  Use this method to find whether a line is perpendicular to another line or not.
+
+  - params : Line
+  - return type: bool
+
+  ```python
+  from geometry.twodim import Line
+
+  l1 = Line((2,4,0))
+  l2 = Line((1,4,3))
+
+  l1IsPerpendicularToL2 = l1.isPerpendicularlTo(l2)
+  # retuns False cuz l2 is not parallel to l1
+
+  l3 = Line((-2,1,3))
+  l1IsPerpendicularToL3 = l1.isPerpendicularlTo(l3)
   # retuns True cuz l3 is parallel to l1
   ```
