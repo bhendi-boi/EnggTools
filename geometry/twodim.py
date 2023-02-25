@@ -1,6 +1,7 @@
 try:
     import math
     import numpy as np
+    from typing import Tuple, Union
 except:
     pass
 
@@ -10,7 +11,7 @@ class IllegalPoint(Exception):
 
 
 class Point():
-    def __init__(self, coordinate: tuple) -> None:
+    def __init__(self, coordinate: Tuple[float]) -> None:
         # (x,y) input
         assert len(coordinate) ==2,"Invalid input for a 2D point"
         self.xcoord = coordinate[0]
@@ -27,7 +28,7 @@ class Point():
 
 
 class Line():
-    def __init__(self, equation: tuple) -> None:
+    def __init__(self, equation: Tuple[float]) -> None:
         # Stored in (a,b,c) tuple, of equation ax+by+c=0
         # Parse
         self.xcoeff = equation[0]
@@ -91,6 +92,12 @@ class Line():
     def isIntersectingWith(self,line2:"Line")->bool:
         # unless both lines are parallel any pair of 2D Lines will always intersect
         return self.slope != line2.slope
+
+
+    def interSectsAt(self,line2:"Line")-> Union[float, bool]:
+        if self.isIntersectingWith(line2):
+            return intersectionPointofTwoLines(self,line2)
+        return False
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:
