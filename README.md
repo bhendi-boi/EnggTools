@@ -202,3 +202,24 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   l1IsPerpendicularToL3 = l1.isPerpendicularlTo(l3)
   # retuns True cuz l3 is parallel to l1
   ```
+
+- ### isIntersectingWith
+
+  Use this method to find whether a line is perpendicular to another line or not.
+
+  - params : Line
+  - return type: bool
+
+  ```python
+  from geometry.twodim import Line
+
+  l1 = Line((2,4,0))
+  l2 = Line((1,2,0))
+
+  l1IntersectsWithL2 = l1.isIntersectingWith(l2)
+  # retuns False cuz l2 is not intersecting with L2
+
+  l3 = Line((-2,1,3))
+  l1IntersectsWithL3 = l1.isIntersectingWith(l3)
+  # retuns True cuz l3 is intersecting with L3
+  ```

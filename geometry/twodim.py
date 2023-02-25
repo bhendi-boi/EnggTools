@@ -86,6 +86,11 @@ class Line():
     
     def isPerpendicularTo(self,line2:"Line")->bool:
         return self.slope * line2.slope == -1
+    
+
+    def isIntersectingWith(self,line2:"Line")->bool:
+        # unless both lines are parallel any pair of 2D Lines will always intersect
+        return self.slope != line2.slope
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:
