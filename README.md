@@ -205,7 +205,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
 
 - ### isIntersectingWith
 
-  Use this method to find whether a line is perpendicular to another line or not.
+  Use this method to find whether a line is intersecting with another line or not.
 
   - params : Line
   - return type: bool
@@ -222,4 +222,26 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   l3 = Line((-2,1,3))
   l1IntersectsWithL3 = l1.isIntersectingWith(l3)
   # retuns True cuz l3 is intersecting with L3
+  ```
+
+- ### intersectsAt
+
+  Use this method to find the intersection point of a line with other.
+  `intersectsAt` will return False if both lines do not intersect.
+
+  - params : Line
+  - return type: Point | bool
+
+  ```python
+  from geometry.twodim import Line
+
+  l1 = Line((2,4,0))
+  l2 = Line((1,2,0))
+
+  l1IntersectsWithL2 = l1.isIntersectingWith(l2)
+  # retuns False cuz l2 is not intersecting with L2
+
+  l3 = Line((0,1,0))
+  l1IntersectsWithL3 = l1.isIntersectingWith(l3)
+  # retuns (2,0) cuz l3 is intersecting with L3
   ```

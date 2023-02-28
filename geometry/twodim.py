@@ -94,7 +94,7 @@ class Line():
         return self.slope != line2.slope
 
 
-    def interSectsAt(self,line2:"Line")-> Union[float, bool]:
+    def intersectsAt(self,line2:"Line")-> Union[float, bool]:
         if self.isIntersectingWith(line2):
             return intersectionPointofTwoLines(self,line2)
         return False
