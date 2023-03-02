@@ -197,6 +197,10 @@ class Quadrilateral():
         self.v2 = vertices[1]
         self.v3 = vertices[2]
         self.v4 = vertices[3]
+        self.l1 = Line.points2line(self.v1, self.v2)
+        self.l2 = Line.points2line(self.v2, self.v3)
+        self.l3 = Line.points2line(self.v3, self.v4)
+        self.l4 = Line.points2line(self.v1, self.v4)
         self.length = max(distanceBetweenPoints(self.v1, self.v2),
                           distanceBetweenPoints(self.v1, self.v4))
         self.breadth = min(distanceBetweenPoints(
@@ -207,10 +211,10 @@ class Quadrilateral():
         self.perimeter = (self.length+self.breadth)*2
 
     def isRectangle(self) -> bool:
-        l1 = Line.points2line(self.v1, self.v2)
-        l2 = Line.points2line(self.v2, self.v3)
-        l3 = Line.points2line(self.v3, self.v4)
-        l4 = Line.points2line(self.v1, self.v4)
+        l1 = self.l1
+        l2 = self.l2
+        l3 = self.l3
+        l4 = self.l4
 
         if l1.isPerpendicularTo(l2) and l1.isPerpendicularTo(l4) and l1.isParallelTo(l3):
             return True
