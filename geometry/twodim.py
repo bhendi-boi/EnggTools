@@ -13,18 +13,16 @@ class IllegalPoint(Exception):
 class Point():
     def __init__(self, coordinate: Tuple[float]) -> None:
         # (x,y) input
-        assert len(coordinate) ==2,"Invalid input for a 2D point"
+        assert len(coordinate) == 2, "Invalid input for a 2D point"
         self.xcoord = coordinate[0]
         self.ycoord = coordinate[1]
-
 
     def dist2origin(self) -> float:
         dist = (self.xcoord**2 + self.ycoord**2)**0.5
         return dist
 
-
-    def dist2point(self,point2)->float:
-        return distanceBetweenPoints(self,point2)
+    def dist2point(self, point2) -> float:
+        return distanceBetweenPoints(self, point2)
 
 
 class Line():
@@ -34,8 +32,10 @@ class Line():
         self.xcoeff = equation[0]
         self.ycoeff = equation[1]
         self.constant = equation[2]
-        self.slope = -self.xcoeff/self.ycoeff
-
+        if self.ycoeff == 0:
+            self.slope = 'inf'
+        else:
+            self.slope = -self.xcoeff/self.ycoeff
 
     @classmethod
     def points2line(cls, point1: Point, point2: Point):
@@ -57,14 +57,12 @@ class Line():
             constant = (x1-x2)*y1+x1*(y2-y1)
         return Line((xcoeff, ycoeff, constant))
 
-
     def containsPoint(self, point: Point) -> bool:
         xcoord = point.xcoord
         ycoord = point.ycoord
         if int(self.xcoeff * xcoord + self.ycoeff*ycoord + self.constant):
             return False
         return True
-
 
     def onSameSide(self, p1: Point, p2: Point) -> bool:
         e1 = self.xcoeff*p1.xcoord + self.ycoeff*p1.ycoord+self.constant
@@ -76,28 +74,26 @@ class Line():
         else:
             return False
 
-    
-    def passesThroughOrigin(self)->bool:
+    def passesThroughOrigin(self) -> bool:
         return self.constant == 0
 
-
-    def isParallelTo(self, line2:"Line")->bool:
+    def isParallelTo(self, line2: "Line") -> bool:
         return self.slope == line2.slope
 
-    
-    def isPerpendicularTo(self,line2:"Line")->bool:
+    def isPerpendicularTo(self, line2: "Line") -> bool:
+        if (self.slope == 0 and line2.slope == 'inf') or (self.slope == 'inf' and line2.slope == 0):
+            return True
         return self.slope * line2.slope == -1
-    
 
-    def isIntersectingWith(self,line2:"Line")->bool:
+    def isIntersectingWith(self, line2: "Line") -> bool:
         # unless both lines are parallel any pair of 2D Lines will always intersect
         return self.slope != line2.slope
 
-
-    def intersectsAt(self,line2:"Line")-> Union[float, bool]:
+    def intersectsAt(self, line2: "Line") -> Union[float, bool]:
         if self.isIntersectingWith(line2):
-            return intersectionPointofTwoLines(self,line2)
+            return intersectionPointofTwoLines(self, line2)
         return False
+
 
 class Circle():
     def __init__(self, radius: float, center: Point) -> None:
@@ -112,22 +108,21 @@ class Triangle():
         self.a = a
         self.b = b
         self.c = c
-        dists = [a.dist2point((b.xcoord,b.ycoord)),a.dist2point((c.xcoord,c.ycoord)),b.dist2point((c.xcoord,c.ycoord))]
+        dists = [a.dist2point((b.xcoord, b.ycoord)), a.dist2point(
+            (c.xcoord, c.ycoord)), b.dist2point((c.xcoord, c.ycoord))]
         dists.sort()
-        assert dists[0]+dists[1] > dists[2],"Invalid Triangle"
+        assert dists[0]+dists[1] > dists[2], "Invalid Triangle"
         self.perimeter = dists[0]+dists[1]+dists[2]
         s = self.perimeter/2
         self.area = (s*(s-dists[2])*(s-dists[1])*(s-dists[0]))**0.5
         self.hasCircle = False
 
-
     def getSideEquations(self):
         e1 = Line.points2line(self.a, self.b)
         e2 = Line.points2line(self.b, self.c)
         e3 = Line.points2line(self.a, self.c)
-        equations = (e2, e3, e1) #In order of sides A B C
+        equations = (e2, e3, e1)  # In order of sides A B C
         return equations
-
 
     def getCircumcircle(self):
         if self.hasCircle == True:
@@ -141,51 +136,95 @@ class Triangle():
             bx, by = b.xcoord, b.ycoord
             cx, cy = c.xcoord, c.ycoord
 
-            
             arr = np.array([ax, ay, 1, bx, by, 1, cx, cy, 1])
-            arr = arr.reshape(3,3)
+            arr = arr.reshape(3, 3)
             sqr_coeff = np.linalg.det(arr)
 
-            
-            arr = np.array([ax**2+ay**2, ay, 1, bx**2+by**2, by, 1, cx**2+cy**2, cy, 1])
-            arr = arr.reshape(3,3)
+            arr = np.array([ax**2+ay**2, ay, 1, bx**2+by **
+                           2, by, 1, cx**2+cy**2, cy, 1])
+            arr = arr.reshape(3, 3)
             lin_coeff_x = np.linalg.det(arr)
-            lin_coeff_x*=-1
+            lin_coeff_x *= -1
 
-            
-            arr = np.array([ax**2+ay**2, ax, 1, bx**2+by**2, bx, 1,cx**2+cy**2, cx, 1])
-            arr = arr.reshape(3,3)
+            arr = np.array([ax**2+ay**2, ax, 1, bx**2+by **
+                           2, bx, 1, cx**2+cy**2, cx, 1])
+            arr = arr.reshape(3, 3)
             lin_coeff_y = np.linalg.det(arr)
 
-            
-            arr = np.array([ax**2+ay**2, ax, ay, bx**2+by**2, bx, by, cx**2+cy**2, cx, cy])
-            arr = arr.reshape(3,3)
-            const_coeff= np.linalg.det(arr)
-            const_coeff*=-1
+            arr = np.array([ax**2+ay**2, ax, ay, bx**2+by **
+                           2, bx, by, cx**2+cy**2, cx, cy])
+            arr = arr.reshape(3, 3)
+            const_coeff = np.linalg.det(arr)
+            const_coeff *= -1
 
-            center = (-1*lin_coeff_x/(2*sqr_coeff),-1*lin_coeff_y/(2*sqr_coeff))
-            radius = ((lin_coeff_x/(2*sqr_coeff))**2+(lin_coeff_y/(2*sqr_coeff))**2-(const_coeff/(sqr_coeff)))**0.5
-            self.circle = Circle(radius,Point(center))
+            center = (-1*lin_coeff_x/(2*sqr_coeff), -
+                      1*lin_coeff_y/(2*sqr_coeff))
+            radius = ((lin_coeff_x/(2*sqr_coeff))**2+(lin_coeff_y /
+                      (2*sqr_coeff))**2-(const_coeff/(sqr_coeff)))**0.5
+            self.circle = Circle(radius, Point(center))
             return self.circle
 
 
-def intersectionPointofTwoLines(l1:Line, l2:Line):
-    a,b,c = l1.xcoeff, l1.ycoeff, l1.constant
-    d,e,f = l2.xcoeff,l2.ycoeff,l2.constant
+def intersectionPointofTwoLines(l1: Line, l2: Line):
+    a, b, c = l1.xcoeff, l1.ycoeff, l1.constant
+    d, e, f = l2.xcoeff, l2.ycoeff, l2.constant
     assert b/a != e/d, "Lines are parallel, no intersection"
     k = b/e
     l = a/d
     x = (f*k-c)/(a-d*k)
     y = (l*f-c)/(b-l*e)
-    poi = (x,y)
+    poi = (x, y)
     return Point(poi)
 
 
-def distanceBetweenPoints(point1: Point,point2:Point) -> float:
+def distanceBetweenPoints(point1: Point, point2: Point) -> float:
     x1 = point1.xcoord
     y1 = point1.ycoord
-    x2 = point2[0]
-    y2 = point2[1]
+    x2 = point2.xcoord
+    y2 = point2.ycoord
     dist: float
     dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
     return dist
+
+
+class Quadrilateral():
+    '''
+    Points must be given in cyclic order
+    '''
+
+    def __init__(self, vertices: Tuple[Point]) -> None:
+        self.v1 = vertices[0]
+        self.v2 = vertices[1]
+        self.v3 = vertices[2]
+        self.v4 = vertices[3]
+        self.length = max(distanceBetweenPoints(self.v1, self.v2),
+                          distanceBetweenPoints(self.v1, self.v4))
+        self.breadth = min(distanceBetweenPoints(
+            self.v1, self.v2), distanceBetweenPoints(self.v1, self.v4))
+        assert self.length > 0, "Quadrilateral Length is zero"
+        assert self.breadth > 0, "Quadrilateral breadth is zero"
+        self.area = self.length * self.breadth
+        self.perimeter = (self.length+self.breadth)*2
+
+    def isRectangle(self) -> bool:
+        l1 = Line.points2line(self.v1, self.v2)
+        l2 = Line.points2line(self.v2, self.v3)
+        l3 = Line.points2line(self.v3, self.v4)
+        l4 = Line.points2line(self.v1, self.v4)
+
+        if l1.isPerpendicularTo(l2) and l1.isPerpendicularTo(l4) and l1.isParallelTo(l3):
+            return True
+        else:
+            return False
+
+    def isRhombus(self) -> bool:
+        if self.length == self.breadth:
+            return True
+        else:
+            return False
+
+    def isSquare(self) -> bool:
+        if self.isRectangle() and self.isRhombus():
+            return True
+        else:
+            return False
