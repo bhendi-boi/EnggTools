@@ -89,7 +89,7 @@ class Line():
         # unless both lines are parallel any pair of 2D Lines will always intersect
         return self.slope != line2.slope
 
-    def intersectsAt(self, line2: "Line") -> Union[float, bool]:
+    def intersectsAt(self, line2: "Line") -> Union[Point, bool]:
         if self.isIntersectingWith(line2):
             return intersectionPointofTwoLines(self, line2)
         return False
@@ -102,6 +102,10 @@ class Circle():
         self.area = math.pi*radius*radius
         self.diameter = self.radius*2
 
+    # ? Todo
+    # Point lies on circle or not 
+    # Location of Point wrt circle
+    # ax2 + by2 + 2gx + 2fy + c = 0
 
 class Triangle():
     def __init__(self, a: Point, b: Point, c: Point) -> None:
@@ -186,7 +190,8 @@ def distanceBetweenPoints(point1: Point, point2: Point) -> float:
     dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
     return dist
 
-
+# ! Todo
+# Remove length and breadth and add another mechanism 
 class Quadrilateral():
     '''
     Points must be given in cyclic order
