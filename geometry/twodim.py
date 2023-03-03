@@ -5,9 +5,21 @@ try:
 except:
     pass
 
+# ? TODO
+# Add linear equation class
+
 
 class IllegalPoint(Exception):
     "Invalid Point"
+
+
+class QuadraticEquation():
+    def __init__(self, x2: float, y2: float, x: float, y: float, c: float) -> None:
+        self.x2 = x2
+        self.y2 = y2
+        self.x = x
+        self.y = y
+        self.c = c
 
 
 class Point():
@@ -102,10 +114,17 @@ class Circle():
         self.area = math.pi*radius*radius
         self.diameter = self.radius*2
 
-    # ? Todo
-    # Point lies on circle or not 
-    # Location of Point wrt circle
-    # ax2 + by2 + 2gx + 2fy + c = 0
+    def onPoint(self, point: Point) -> bool:
+        return self.radius == distanceBetweenPoints(self.center, point)
+
+    def containsPoint(self, point: Point) -> bool:
+        return self.radius >= distanceBetweenPoints(self.center, point)
+
+    def getEquation(self) -> QuadraticEquation:
+        equation = QuadraticEquation(1, 1, -2*self.center.xcoord, -2*self.center.ycoord,
+                                     self.center.xcoord**2+self.center.ycoord**2-self.radius**2)
+        return equation
+
 
 class Triangle():
     def __init__(self, a: Point, b: Point, c: Point) -> None:
@@ -190,8 +209,7 @@ def distanceBetweenPoints(point1: Point, point2: Point) -> float:
     dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
     return dist
 
-# ! Todo
-# Remove length and breadth and add another mechanism 
+
 class Quadrilateral():
     '''
     Points must be given in cyclic order
@@ -202,38 +220,28 @@ class Quadrilateral():
         self.v2 = vertices[1]
         self.v3 = vertices[2]
         self.v4 = vertices[3]
+
         self.l1 = Line.points2line(self.v1, self.v2)
         self.l2 = Line.points2line(self.v2, self.v3)
         self.l3 = Line.points2line(self.v3, self.v4)
         self.l4 = Line.points2line(self.v1, self.v4)
-        self.length = max(distanceBetweenPoints(self.v1, self.v2),
-                          distanceBetweenPoints(self.v1, self.v4))
-        self.breadth = min(distanceBetweenPoints(
-            self.v1, self.v2), distanceBetweenPoints(self.v1, self.v4))
-        assert self.length > 0, "Quadrilateral Length is zero"
-        assert self.breadth > 0, "Quadrilateral breadth is zero"
-        self.area = self.length * self.breadth
-        self.perimeter = (self.length+self.breadth)*2
+
+        self.lengths = (distanceBetweenPoints(self.v1, self.v2), distanceBetweenPoints(
+            self.v2, self.v3), distanceBetweenPoints(
+            self.v3, self.v4), distanceBetweenPoints(self.v1, self.v4)
+        )
+        self.perimeter = self.lengths[0] + \
+            self.lengths[1]+self.lengths[2]+self.lengths[3]
 
     def isRectangle(self) -> bool:
         l1 = self.l1
         l2 = self.l2
         l3 = self.l3
         l4 = self.l4
-
-        if l1.isPerpendicularTo(l2) and l1.isPerpendicularTo(l4) and l1.isParallelTo(l3):
-            return True
-        else:
-            return False
+        return l1.isPerpendicularTo(l2) and l1.isPerpendicularTo(l4) and l1.isParallelTo(l3) and self.lengths[0] == self.lengths[2] and self.lengths[1] == self.lengths[3]
 
     def isRhombus(self) -> bool:
-        if self.length == self.breadth:
-            return True
-        else:
-            return False
+        return self.lengths[0] == self.lengths[2] and self.lengths[1] == self.lengths[3] and self.lengths[1] == self.lengths[2]
 
     def isSquare(self) -> bool:
-        if self.isRectangle() and self.isRhombus():
-            return True
-        else:
-            return False
+        return self.isRectangle() and self.isRhombus()
