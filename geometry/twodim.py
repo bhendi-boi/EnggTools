@@ -5,9 +5,6 @@ try:
 except:
     pass
 
-# ? TODO
-# Add linear equation class
-
 
 class IllegalPoint(Exception):
     "Invalid Point"
