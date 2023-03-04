@@ -1,6 +1,12 @@
 try:
+    # external dependencies
     import math
     import numpy as np
+    # Core classes
+    from Point import Point
+
+    # utils
+    from utils import distanceBetweenPoints
     from typing import Tuple, Union
 except:
     pass
@@ -19,19 +25,7 @@ class QuadraticEquation():
         self.c = c
 
 
-class Point():
-    def __init__(self, coordinate: Tuple[float]) -> None:
-        # (x,y) input
-        assert len(coordinate) == 2, "Invalid input for a 2D point"
-        self.xcoord = coordinate[0]
-        self.ycoord = coordinate[1]
 
-    def dist2origin(self) -> float:
-        dist = (self.xcoord**2 + self.ycoord**2)**0.5
-        return dist
-
-    def dist2point(self, point2) -> float:
-        return distanceBetweenPoints(self, point2)
 
 
 class Line():
@@ -197,14 +191,7 @@ def intersectionPointofTwoLines(l1: Line, l2: Line):
     return Point(poi)
 
 
-def distanceBetweenPoints(point1: Point, point2: Point) -> float:
-    x1 = point1.xcoord
-    y1 = point1.ycoord
-    x2 = point2.xcoord
-    y2 = point2.ycoord
-    dist: float
-    dist = ((x1 - x2)**2 + (y1-y2)**2)**0.5
-    return dist
+
 
 
 class Quadrilateral():
