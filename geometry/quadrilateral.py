@@ -1,37 +1,10 @@
-try:
-    # external dependencies
-    import math
-    import numpy as np
-    # Core classes
-    from .point import Point
-    from .line import Line
-    # utils
-    from utils import distanceBetweenPoints
-
-    
-except:
-    pass
+from .point import Point
+from .line import Line
+from .utils import distanceBetweenPoints
+from typing import Tuple
 
 
-class IllegalPoint(Exception):
-    "Invalid Point"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Quadrilateral():
+class Quadrilateral:
     '''
     Points must be given in cyclic order
     '''
