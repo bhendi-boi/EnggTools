@@ -1,10 +1,9 @@
-try:
-    from typing import Tuple
-    from utils import distanceBetweenPoints
-except:
-    pass
 
-class Point():
+from typing import Tuple
+from .utils import distanceBetweenPoints
+
+
+class Point:
     def __init__(self, coordinate: Tuple[float]) -> None:
         # (x,y) input
         assert len(coordinate) == 2, "Invalid input for a 2D point"
