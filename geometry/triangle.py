@@ -9,8 +9,8 @@ class Triangle:
         self.a = a
         self.b = b
         self.c = c
-        dists = [a.dist2point((b.xcoord, b.ycoord)), a.dist2point(
-            (c.xcoord, c.ycoord)), b.dist2point((c.xcoord, c.ycoord))]
+        dists = [a.dist2point(Point((b.xcoord, b.ycoord))), a.dist2point(
+            Point((c.xcoord, c.ycoord))), b.dist2point(Point((c.xcoord, c.ycoord)))]
         dists.sort()
         assert dists[0]+dists[1] > dists[2], "Invalid Triangle"
         self.perimeter = dists[0]+dists[1]+dists[2]
