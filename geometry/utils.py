@@ -1,3 +1,5 @@
+from math import sqrt
+
 def distanceBetweenPoints(point1, point2) -> float:
     x1 = point1.xcoord
     y1 = point1.ycoord
@@ -19,3 +21,7 @@ def intersectionPointofTwoLines(l1, l2):
     poi = (x, y)
     from geometry import Point
     return Point(poi)
+
+
+def distanceBetweenPoints3D(point1,point2)->float:
+    return sqrt((point1.xcoord - point2.xcoord) ** 2 + (point1.ycoord - point2.ycoord) ** 2 + (point1.zcoord - point2.zcoord))
