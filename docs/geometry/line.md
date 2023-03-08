@@ -7,14 +7,14 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   You can create a line by calling the Line constructor with a tuple say `(a,b,c)` as an argument. Here a,b,c represents the xcoefficient, ycooefficent and constant of the line l when written in the form `ax+by+c = 0`.
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
   l = Line((1,1,-3))
   ```
 
   From two points on a line
 
   ```python
-  from geometry.twodim import Line, Point
+  from geometry import Line, Point
 
   p1 = Point((1,2))
   p2 = Point(2,2)
@@ -22,6 +22,15 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   l = Line(p1,p2)
   # returns a line pasing through points p1 and p2
   # i.e. y-2=0
+  ```
+
+  From specifying line equation in the form of a string
+
+  ```python
+  from geometry import Line
+
+  line1 = Line.initFromString("2x - 3y = 0")
+  # returns a line object which represents 2x - 3y = 0
   ```
 
 - ## containsPoint
@@ -32,7 +41,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line, Point
+  from geometry import Line, Point
 
   p1 = Point((1,2))
   p2 = Point((2,2))
@@ -54,7 +63,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line, Point
+  from geometry import Line, Point
 
   l = Line((1,0,0))
   p1 = Point((2,0))
@@ -76,7 +85,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
 
   l = Line((1,2,0))
   lPassesThroughOrigin = l.passesThroughOrigin()
@@ -98,7 +107,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
 
   l1 = Line((2,4,0))
   l2 = Line((1,4,3))
@@ -119,7 +128,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
 
   l1 = Line((2,4,0))
   l2 = Line((1,4,3))
@@ -140,7 +149,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: bool
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
 
   l1 = Line((2,4,0))
   l2 = Line((1,2,0))
@@ -162,7 +171,7 @@ This is one of the basic element in 2D Geometry. This represents a line in 2D ca
   - return type: Point | bool
 
   ```python
-  from geometry.twodim import Line
+  from geometry import Line
 
   l1 = Line((2,4,0))
   l2 = Line((1,2,0))
