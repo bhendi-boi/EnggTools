@@ -17,11 +17,16 @@ def lineParser(input: str) -> Tuple[float]:
             else:
                 coordinates[1] = float(input[i - 1])
         elif input[i] == "=":
+            # ax + by = c
             if input[-1] != "0":
                 if input[i + 1] == "-":
                     coordinates[2] = -1 * float(input[i + 2])
                 else:
                     coordinates[2] = float(input[i + 1])
+            # ax + by = 0
+            elif input[i-1] == "y":
+                coordinates[2] = 0
+            # ax + by + c = 0
             else:
                 coordinates[2] = float(input[i - 1])
     return coordinates

@@ -2,6 +2,7 @@
 import math
 from .point import Point
 from .utils import intersectionPointofTwoLines
+from utils import lineParser
 from typing import Union, Tuple
 
 
@@ -16,6 +17,11 @@ class Line:
             self.slope = 'inf'
         else:
             self.slope = -self.xcoeff/self.ycoeff
+
+    @classmethod
+    def initFromString(self,lineEq: str)->"Line":
+        coordinates = lineParser(lineEq)
+        return Line(coordinates)
 
     @classmethod
     def points2line(cls, point1: Point, point2: Point):
