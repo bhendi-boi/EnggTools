@@ -7,12 +7,21 @@ def lineParser(input: str) -> Tuple[float]:
     input = input.replace(" ", "")
     for i in range(len(input)):
         if input[i].lower() == "x":
-            coordinates[0] = float(input[i - 1])
+            if input[i - 2] == "-":
+                coordinates[0] = -1 * float(input[i - 1])
+            else:
+                coordinates[0] = float(input[i - 1])
         elif input[i].lower() == "y":
-            coordinates[1] = float(input[i - 1])
+            if input[i - 2] == "-":
+                coordinates[1] = -1 * float(input[i - 1])
+            else:
+                coordinates[1] = float(input[i - 1])
         elif input[i] == "=":
             if input[-1] != "0":
-                coordinates[2] = float(input[-1])
+                if input[i + 1] == "-":
+                    coordinates[2] = -1 * float(input[i + 2])
+                else:
+                    coordinates[2] = float(input[i + 1])
             else:
                 coordinates[2] = float(input[i - 1])
     return coordinates
